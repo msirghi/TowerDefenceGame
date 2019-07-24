@@ -10,7 +10,6 @@ import lombok.Setter;
 import lombok.extern.slf4j.Slf4j;
 import org.newdawn.slick.opengl.Texture;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.CopyOnWriteArrayList;
 
@@ -34,24 +33,6 @@ public class TowerCannon {
   private List<Projectile> projectiles;
   private CopyOnWriteArrayList<Enemy> enemies;
   private Enemy target;
-
-  public TowerCannon(Texture baseTexture, Tile startTile, int damage, int range,
-                     CopyOnWriteArrayList<Enemy> enemies) {
-    this.baseTexture = baseTexture;
-    this.range = range;
-    this.cannonTexture = MainLoader.quickLoad("cannon");
-    this.enemies = enemies;
-    this.damage = damage;
-    this.startTile = startTile;
-    this.x = startTile.getX();
-    this.y = startTile.getY();
-    this.width = startTile.getWidth();
-    this.height = startTile.getHeight();
-    this.firingSpeed = 3;
-    this.targeted = false;
-    this.timeSinceLastShot = 0;
-    projectiles = new ArrayList<>();
-  }
 
   private Enemy getTarget() {
     Enemy closestEnemy = null;

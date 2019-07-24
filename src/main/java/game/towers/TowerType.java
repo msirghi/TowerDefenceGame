@@ -2,8 +2,10 @@ package game.towers;
 
 import game.helpers.MainLoader;
 import game.projectiles.ProjectileType;
+import lombok.Getter;
 import org.newdawn.slick.opengl.Texture;
 
+@Getter
 public enum TowerType {
 
   CannonRed(new Texture[]{
@@ -16,12 +18,12 @@ public enum TowerType {
           MainLoader.quickLoad("dalaranTower"),
           MainLoader.quickLoad("cannonGun")}, ProjectileType.IceBall, 10, 1000, 3, 20);
 
-  public Texture[] textures;
-  public ProjectileType type;
-  public int damage;
-  public int range;
-  public int cost;
-  public float firingSpeed;
+  Texture[] textures;
+  ProjectileType type;
+  int damage;
+  int range;
+  int cost;
+  float firingSpeed;
 
   TowerType(Texture[] textures, ProjectileType type, int damage, int range,
             float firingSpeed, int cost) {

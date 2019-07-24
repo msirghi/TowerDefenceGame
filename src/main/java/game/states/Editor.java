@@ -3,6 +3,7 @@ package game.states;
 import game.helpers.MainLoader;
 import game.tiles.Map;
 import game.tiles.TileType;
+import game.ui.Menu;
 import game.ui.UI;
 import lombok.Getter;
 import lombok.extern.slf4j.Slf4j;
@@ -20,7 +21,7 @@ public class Editor {
   private int index;
   private TileType[] types;
   private UI editorUI;
-  private UI.Menu tilePickerMenu;
+  private Menu tilePickerMenu;
   private Texture menuBackground;
 
 

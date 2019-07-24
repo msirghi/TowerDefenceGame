@@ -10,6 +10,7 @@ import game.players.*;
 import game.tiles.Map;
 import game.towers.TowerCannonBlue;
 import game.towers.TowerCannonIce;
+import game.ui.Menu;
 import game.ui.UI;
 import game.waves.WaveManager;
 import lombok.Getter;
@@ -27,16 +28,16 @@ public class Game {
   private WaveManager waveManager;
   private TowerCannonBlue blue;
   private UI gameUI;
-  private UI.Menu towerPickerMenu;
+  private Menu towerPickerMenu;
   private Texture menuBackground;
   private UI healthUI;
-  private UI.Menu healthMenu;
+  private Menu healthMenu;
   private UI cashUI;
-  private UI.Menu cashMenu;
+  private Menu cashMenu;
   private UI waveUI;
-  private UI.Menu waveMenu;
+  private Menu waveMenu;
   private UI fpsUI;
-  private UI.Menu fpsMenu;
+  private Menu fpsMenu;
   private Enemy[] enemyTypes;
 
   public Game(Map map) {

@@ -59,8 +59,7 @@ public class Wave {
 
   public void spawn() {
     int enemyChosen;
-    Random random = new Random();
-    enemyChosen = random.nextInt(enemyType.length);
+    enemyChosen = new Random().nextInt(enemyType.length);
     enemyList.add(new Enemy(enemyType[enemyChosen].getTexture(),
             enemyType[enemyChosen].getStartTile(), MainLoader.TILE_SIZE,
             MainLoader.TILE_SIZE, enemyType[enemyChosen].getMap(),

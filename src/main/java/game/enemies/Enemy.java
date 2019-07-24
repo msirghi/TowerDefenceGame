@@ -28,48 +28,39 @@ public class Enemy implements Entity {
   private int width;
   private int height;
   private int currentCheckpoint;
+  private int[] directions;
+  private boolean first;
+  private boolean alive;
   private Texture texture;
   private Texture healthBackground;
   private Texture healthForeground;
   private Texture healthBorder;
-  private Tile startTile;
-  private boolean first;
   private Map map;
+  private Tile startTile;
   private List<Checkpoint> checkpoints;
-  private int[] directions;
-  private boolean alive;
 
-  public Enemy(int tileX, int tileY, Map grid) {
+  private void init() {
     this.healthBackground = MainLoader.quickLoad("healthBackground");
     this.healthForeground = MainLoader.quickLoad("healthForeground");
     this.healthBorder = MainLoader.quickLoad("healthBorder");
-    this.startTile = grid.getTile(tileX, tileY);
-    this.x = startTile.getX();
-    this.y = startTile.getY();
-    this.width = MainLoader.TILE_SIZE;
-    this.height = MainLoader.TILE_SIZE;
     this.startHealth = health;
     this.health = 50;
     this.speed = 50;
-    this.map = grid;
-
-    checkpoints = new ArrayList<>();
-    this.healthBackground = MainLoader.quickLoad("healthBackground");
-    this.healthForeground = MainLoader.quickLoad("healthForeground");
-    this.healthBorder = MainLoader.quickLoad("healthBorder");
-
-    // x & y
     directions = new int[2];
-    this.directions[0] = 0;
-    this.directions[1] = 0;
-
-    directions = findNextDirection(startTile);
     this.currentCheckpoint = 0;
-    populateCheckpointList();
+    checkpoints = new ArrayList<>();
   }
 
-  public void setTexture(String textureName) {
-    this.texture = MainLoader.quickLoad(textureName);
+  public Enemy(int tileX, int tileY, Map grid) {
+    init();
+    this.startTile = grid.getTile(tileX, tileY);
+    this.x = startTile.getX();
+    this.y = startTile.getY();
+    this.map = grid;
+    this.width = MainLoader.TILE_SIZE;
+    this.height = MainLoader.TILE_SIZE;
+    directions = findNextDirection(startTile);
+    populateCheckpointList();
   }
 
   public Enemy(Texture texture, Tile startTile, int width, int height, Map map,
@@ -87,19 +78,13 @@ public class Enemy implements Entity {
     this.health = health;
     this.speed = speed;
     this.hiddenHealth = health;
-    checkpoints = new ArrayList<>();
-    this.healthBackground = MainLoader.quickLoad("healthBackground");
-    this.healthForeground = MainLoader.quickLoad("healthForeground");
-    this.healthBorder = MainLoader.quickLoad("healthBorder");
-
-    // x & y
-    directions = new int[2];
-    this.directions[0] = 0;
-    this.directions[1] = 0;
-
+    init();
     directions = findNextDirection(startTile);
-    this.currentCheckpoint = 0;
     populateCheckpointList();
+  }
+
+  public void setTexture(String textureName) {
+    this.texture = MainLoader.quickLoad(textureName);
   }
 
   private void populateCheckpointList() {
@@ -179,21 +164,16 @@ public class Enemy implements Entity {
     Tile left = map.getTile(startTile.getXPlace() - 1, startTile.getYPlace());
 
     if (startTile.getTileType() == up.getTileType() && directions[1] != 1) {
-      dir[0] = 0;
       dir[1] = -1;
     } else if (startTile.getTileType() == right.getTileType() && directions[0] != -1) {
       dir[0] = 1;
-      dir[1] = 0;
     } else if (startTile.getTileType() == down.getTileType() && directions[1] != -1) {
-      dir[0] = 0;
       dir[1] = 1;
     } else if (startTile.getTileType() == left.getTileType() && directions[0] != 1) {
       dir[0] = -1;
-      dir[1] = 0;
     } else {
       dir[0] = 2;
       dir[1] = 2;
-//      log.info("No direction to go!");
     }
     return dir;
   }
@@ -225,7 +205,7 @@ public class Enemy implements Entity {
 
   private boolean checkpointReached() {
     boolean reached = false;
-    Tile tile = null;
+    Tile tile;
     tile = checkpoints.get(currentCheckpoint).getTile();
 
     //inside tile area
